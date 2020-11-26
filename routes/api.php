@@ -29,8 +29,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/delete/product/{id}', 'ProductController@deleteProduct');
     Route::post('/update/sale/{id}', 'ProductController@updateSaleStatus');
     Route::post('/update/isPopular/{id}', 'ProductController@updatePopular');
+    Route::post('/update/isNewRelease/{id}', 'ProductController@updateNewReleased');
 });
 
 Route::get('/get/product/popular', 'ProductController@getAllPopularProducts');
 Route::get('/get/product/newReleased', 'ProductController@getAllNewReleaseProducts');
 Route::get('/get/product', 'ProductController@getAllProducts');
+Route::post('/order/product/{id}', 'OrderController@orderProduct');

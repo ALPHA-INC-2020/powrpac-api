@@ -22,7 +22,6 @@ class ProductController extends Controller
             'details' => 'required',
             'imageURLs' => 'required',
         ]);
-
         $product = Product::create([
             'model' => $validatedData['model'],
             'productName' => $validatedData['productName'],
@@ -36,9 +35,11 @@ class ProductController extends Controller
             'sale' => $validatedData['sale'],
             'details' => $validatedData['details'],
             'imageURLs' => $validatedData['imageURLs'],
+            'isNewRelease' => $request->isNewRelease,
+            'isPopular' => $request->isPopular
         ]);
 
-        return response(['product', $product], 200)->header('Content-Type', 'application/json');
+        return response($product, 200)->header('Content-Type', 'application/json');
     }
 
     public function updateProduct(Request $request, $id)
@@ -101,9 +102,16 @@ class ProductController extends Controller
         return response('Make Popular Product!', 200);
     }
 
+    public function updateNewReleased(Request $request, $id){
+        $product = Product::findOrFail($id);
+        $product->isNewRelease = !$request->isNewRelease;
+        $product->save();
+        return response('Make New Released Product', 200);
+    }
+
     public function getAllPopularProducts(){
         $popular_products = Product::where('isPopular' , true)->get();
-        return response(['Popular Products', $popular_products], 200)->header('Content-Type', 'application/json');
+        return response( $popular_products, 200)->header('Content-Type', 'application/json');
     }
 
     public function getAllNewReleaseProducts(){
