@@ -17,7 +17,7 @@ class OrderController extends Controller
             'product_id' => $id,
             'customer_name' => $validatedData['customer_name'],
             'customer_address' => $validatedData['customer_address'],
-            'email' => $req->email ? $req->email : 'unknown@gmail.com',
+            'email' => $req->customer_email ? $req->customer_email : 'unknown@gmail.com',
             'phone_no' => $req->phone_no ? $req->phone_no : '09 - xxxxxxx',
             'note' => $req->note ? $req->note : 'no note',
             'order_status'=> $validatedData['order_status']
@@ -25,5 +25,9 @@ class OrderController extends Controller
 
 
         return response($order, 200)->header('Content-Type', 'application/json');
+    }
+
+    public function getAllOrders(){
+        return response(Order::with('product')->orderBy('id', 'desc')->get(),200)->header('Content-Type', 'application/json');
     }
 }

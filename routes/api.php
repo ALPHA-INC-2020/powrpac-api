@@ -35,4 +35,5 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::get('/get/product/popular', 'ProductController@getAllPopularProducts');
 Route::get('/get/product/newReleased', 'ProductController@getAllNewReleaseProducts');
 Route::get('/get/product', 'ProductController@getAllProducts');
+Route::get('/get/order', 'OrderController@getAllOrders');
 Route::post('/order/product/{id}', 'OrderController@orderProduct');

@@ -14,7 +14,7 @@ class AddPurchaseTypeToOrders extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->enum('purchase_type', ['KBZ Pay','CB Pay','Wave Money', 'AYA Pay', 'COD'])->default('COD');
+            $table->enum('purchase_type', ['KBZ Pay','CB Pay','Wave Money', 'AYA Pay', 'Cash On Deli'])->default('Cash On Deli');
         });
     }
 
