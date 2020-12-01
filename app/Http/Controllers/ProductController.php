@@ -36,7 +36,7 @@ class ProductController extends Controller
             'details' => $validatedData['details'],
             'imageURLs' => $validatedData['imageURLs'],
             'isNewRelease' => $request->isNewRelease,
-            'isPopular' => $request->isPopular
+            'isPopular' => $request->isPopular,
         ]);
 
         return response($product, 200)->header('Content-Type', 'application/json');
@@ -90,32 +90,36 @@ class ProductController extends Controller
     public function updateSaleStatus(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        $product->sale = $request->sale;
+        $product->sale = $request->status;
         $product->save();
         return response('Status Updated!', 200);
     }
 
-    public function updatePopular(Request $request, $id){
+    public function updatePopular(Request $request, $id)
+    {
         $product = Product::findOrFail($id);
         $product->isPopular = !$request->isPopular;
         $product->save();
         return response('Make Popular Product!', 200);
     }
 
-    public function updateNewReleased(Request $request, $id){
+    public function updateNewReleased(Request $request, $id)
+    {
         $product = Product::findOrFail($id);
         $product->isNewRelease = !$request->isNewRelease;
         $product->save();
         return response('Make New Released Product', 200);
     }
 
-    public function getAllPopularProducts(){
-        $popular_products = Product::where('isPopular' , true)->get();
-        return response( $popular_products, 200)->header('Content-Type', 'application/json');
+    public function getAllPopularProducts()
+    {
+        $popular_products = Product::where('isPopular', true)->get();
+        return response($popular_products, 200)->header('Content-Type', 'application/json');
     }
 
-    public function getAllNewReleaseProducts(){
-        $new_released_products = Product::where('isNewRelease' , true)->get();
+    public function getAllNewReleaseProducts()
+    {
+        $new_released_products = Product::where('isNewRelease', true)->get();
         return response($new_released_products, 200)->header('Content-Type', 'application/json');
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +29,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/update/sale/{id}', 'ProductController@updateSaleStatus');
     Route::post('/update/isPopular/{id}', 'ProductController@updatePopular');
     Route::post('/update/isNewRelease/{id}', 'ProductController@updateNewReleased');
+    Route::post('/order/updateStatus/{id}', 'OrderController@updateOrderStatus');
+    Route::post('/delete/order/{id}', 'OrderController@deleteOrder');
+    Route::get('/get/banner', 'BannerController@getAllBanners');
+
 });
 
 Route::get('/get/product/popular', 'ProductController@getAllPopularProducts');
@@ -37,3 +40,4 @@ Route::get('/get/product/newReleased', 'ProductController@getAllNewReleaseProduc
 Route::get('/get/product', 'ProductController@getAllProducts');
 Route::get('/get/order', 'OrderController@getAllOrders');
 Route::post('/order/product/{id}', 'OrderController@orderProduct');
+Route::get('/get/banner/active', 'BannerController@getActiveBanner');
