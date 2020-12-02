@@ -32,7 +32,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/order/updateStatus/{id}', 'OrderController@updateOrderStatus');
     Route::post('/delete/order/{id}', 'OrderController@deleteOrder');
     Route::get('/get/banner', 'BannerController@getAllBanners');
-
+    Route::post('/delete/banner/{id}', 'BannerController@deleteBanner');
+    Route::post('/set/banner/active/{id}', 'BannerController@setActiveBanner');
+    Route::post('/create/banner', 'BannerController@createNewBanner');
 });
 
 Route::get('/get/product/popular', 'ProductController@getAllPopularProducts');
