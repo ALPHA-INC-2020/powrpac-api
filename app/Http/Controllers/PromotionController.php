@@ -39,6 +39,11 @@ class PromotionController extends Controller
         return response(Promotion::orderBy('status', 'desc')->get(), 200);
     }
 
+    public function getAllActivePromotions()
+    {
+        return response(Promotion::where('status', true)->get(), 200);
+    }
+
     public function deletePromotion($id)
     {
         $promotion = Promotion::find($id);

@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/delete/promotion/{id}', 'PromotionController@deletePromotion');
 });
 
+Route::get('/get/promotion/active', 'PromotionController@getAllActivePromotions');
 Route::get('/get/product/popular', 'ProductController@getAllPopularProducts');
 Route::get('/get/product/newReleased', 'ProductController@getAllNewReleaseProducts');
 Route::get('/get/product', 'ProductController@getAllProducts');

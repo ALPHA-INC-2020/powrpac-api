@@ -17,7 +17,7 @@ class CreatePromotionTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
-            $table->string('content');
+            $table->longText('content');
             $table->json('images');
 
         });
