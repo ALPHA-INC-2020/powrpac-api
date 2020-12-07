@@ -18,7 +18,7 @@ class PromotionTableSeeder extends Seeder
             Promotion::create([
                 'title' => $faker->name,
                 'content' => '<p> this is text</p> <b> this is bold </b>',
-                'images' => ['https://unionpowerpac.com.mm/promotions/tadingyut/promo_one.jpg', 'https://unionpowerpac.com.mm/promotions/tadingyut/promo_two.jpg', 'https://unionpowerpac.com.mm/promotions/tadingyut/promo_three.jpg', 'https://unionpowerpac.com.mm/promotions/tadingyut/promo_four.jpg'],
+                'imageURLs' => ['https://unionpowerpac.com.mm/promotions/tadingyut/promo_one.jpg', 'https://unionpowerpac.com.mm/promotions/tadingyut/promo_two.jpg', 'https://unionpowerpac.com.mm/promotions/tadingyut/promo_three.jpg', 'https://unionpowerpac.com.mm/promotions/tadingyut/promo_four.jpg'],
             ]);
         }
     }

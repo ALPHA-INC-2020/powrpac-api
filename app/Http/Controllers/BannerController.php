@@ -28,11 +28,13 @@ class BannerController extends Controller
     {
         $banner = Banner::all();
         $active_banner = $banner->where('status', true)->first();
-        $active_banner->status = false;
+        if (isset($active_banner)) {
+            $active_banner->status = false;
+            $active_banner->save();
+        }
         $to_active_banner = $banner->find($id);
         $to_active_banner->status = true;
 
-        $active_banner->save();
         $to_active_banner->save();
         return response(Banner::orderBy('status', 'desc')->get(), 200);
     }

@@ -12,13 +12,13 @@ class PromotionController extends Controller
         $validatedData = $res->validate([
             'title' => 'required',
             'content' => 'required',
-            'images' => 'required',
+            'imageURLs' => 'required',
         ]);
 
         $promotion = Promotion::create([
             'title' => $validatedData['title'],
             'content' => $validatedData['content'],
-            'images' => $validatedData['images'],
+            'imageURLs' => $validatedData['imageURLs'],
         ]);
         return response($promotion, 200);
     }
@@ -28,7 +28,6 @@ class PromotionController extends Controller
 
         $to_active_promotion = Promotion::findOrFail($id);
         $to_active_promotion->status = !$res->status;
-
         $to_active_promotion->save();
 
         return response(Promotion::orderBy('status', 'desc')->get(), 200);

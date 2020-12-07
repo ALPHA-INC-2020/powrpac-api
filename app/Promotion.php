@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Promotion extends Model
 {
-    protected $fillable = ['title', 'content', 'images'];
+    protected $fillable = ['title', 'content', 'imageURLs'];
 
     protected $casts = [
-        'images' => 'array',
+        'imageURLs' => 'array',
     ];
 
 }
