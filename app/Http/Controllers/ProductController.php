@@ -77,7 +77,7 @@ class ProductController extends Controller
     public function getAllProducts()
     {
         $products = Product::all();
-        return response(['products', $products], 200)->header('Content-Type', 'application/json');
+        return response($products, 200)->header('Content-Type', 'application/json');
     }
 
     public function deleteProduct($id)
