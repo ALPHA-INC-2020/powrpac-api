@@ -39,6 +39,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/get/promotion', 'PromotionController@getAllPromotions');
     Route::post('/set/promotion/active/{id}', 'PromotionController@setActivePromotion');
     Route::post('/delete/promotion/{id}', 'PromotionController@deletePromotion');
+    Route::post('/create/faq', 'faqController@createFAQ');
+    Route::post('/delete/faq/{id}', 'faqController@deleteFAQ');
+    Route::post('/update/faq/{id}', 'faqController@updateFAQ');
 });
 
 Route::get('/get/promotion/active', 'PromotionController@getAllActivePromotions');
@@ -48,3 +51,4 @@ Route::get('/get/product', 'ProductController@getAllProducts');
 Route::get('/get/order', 'OrderController@getAllOrders');
 Route::post('/order/product/{id}', 'OrderController@orderProduct');
 Route::get('/get/banner/active', 'BannerController@getActiveBanner');
+Route::get('/get/faqs', 'faqController@getAllFAQs');

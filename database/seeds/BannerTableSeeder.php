@@ -13,10 +13,8 @@ class BannerTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-
         for ($i = 0; $i < 10; $i++) {
             Banner::create([
-                'name' => $faker->name,
                 'banner_title' => $faker->randomElement(['Happy Thadingyut', 'Happy Tazaundiang', 'Happy Thingyan', 'Happy December']),
                 'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA46D6RIgZT725S5goC2PIrSZg76NLbneGMw&usqp=CAU',
             ]);
