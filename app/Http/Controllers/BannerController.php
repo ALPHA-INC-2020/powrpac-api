@@ -10,13 +10,11 @@ class BannerController extends Controller
     public function createNewBanner(Request $req)
     {
         $validatedData = $req->validate([
-            'name' => 'required',
             'banner_title' => 'required',
             'image' => 'required',
         ]);
 
         $new_banner = Banner::create([
-            'name' => $validatedData['name'],
             'banner_title' => $validatedData['banner_title'],
             'image' => $validatedData['image'],
         ]);
