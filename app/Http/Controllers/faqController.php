@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\FAQ;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class faqController extends Controller
@@ -13,6 +14,7 @@ class faqController extends Controller
             'question' => 'required',
             'answer' => 'required',
         ]);
+
         $new_faq = FAQ::create([
             'question' => $validatedData['question'],
             'answer' => $validatedData['answer'],
@@ -28,25 +30,37 @@ class faqController extends Controller
 
     public function deleteFAQ($id)
     {
-        $faq = FAQ::findOrFail($id);
-        $faq->delete();
-        return response()->json(['message' => 'delete faq success', 'data' => $faq], 200);
+        try {
+            $faq = FAQ::findOrFail($id);
+            $faq->delete();
+            return response()->json(['message' => 'delete faq success', 'data' => $faq], 200);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'no record'], 404);
+        }
+
     }
 
     public function updateFAQ(Request $req, $id)
     {
-        $faq = FAQ::findOrFail($id);
 
-        if ($req->question) {
-            $faq->question = $req->question;
+        try {
+            $faq = FAQ::findOrFail($id);
+
+            if ($req->question) {
+                $faq->question = $req->question;
+            }
+
+            if ($req->answer) {
+                $faq->answer = $req->answer;
+            }
+
+            $faq->save();
+            return response()->json(['message' => 'update  faq success!', 'data' => $faq], 200);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'no record'], 404);
         }
-
-        if ($req->answer) {
-            $faq->answer = $req->answer;
-        }
-
-        $faq->save();
-        return response()->json(['message' => 'update  faq success!', 'data' => $faq], 200);
 
     }
 }

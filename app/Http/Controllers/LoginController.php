@@ -13,14 +13,14 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required']
+            'password' => ['required'],
         ]);
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect']
+                'email' => ['The provided credentials are incorrect'],
             ]);
         }
 
@@ -30,5 +30,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
+
+        return response()->json(['message' => 'logout success']);
     }
 }
