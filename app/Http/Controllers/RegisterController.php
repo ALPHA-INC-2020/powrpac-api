@@ -16,12 +16,20 @@ class RegisterController extends Controller
             'password' => ['required', "min:8", 'confirmed'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $passcode = 'powerpacadmin2020nov29';
 
-        return response()->json(['message' => 'success', 'data' => $user]);
+        if ($request->passcode === $passcode && $request->passcode != '') {
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            return response()->json(['message' => 'success', 'data' => $user], 200);
+        } else {
+            return response()->json(['message' => 'Invalid register passcode'], 405);
+        }
+
     }
 }
