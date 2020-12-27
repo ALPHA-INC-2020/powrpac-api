@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -182,5 +183,28 @@ class ProductController extends Controller
     {
         $new_released_products = Product::where('isNewRelease', true)->get();
         return response($new_released_products, 200)->header('Content-Type', 'application/json');
+    }
+
+    public function getChart()
+    {
+
+        $productByMonth = Product::select('created_at')
+            ->get()
+            ->groupBy(function ($date) {
+                // return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+                return Carbon::parse($date->created_at)->format('m'); // grouping by months
+            });
+
+        $collections = [];
+
+        for ($i = 0; $i < 13; $i++) {
+            $collections[$i] = 0;
+        }
+        foreach ($productByMonth as $key => $value) {
+
+            $collections[(int) $key] = count($value);
+        }
+
+        return response($collections, 200);
     }
 }
