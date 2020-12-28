@@ -19,6 +19,7 @@ class OrderController extends Controller
                 'customer_name' => 'required',
                 'customer_address' => 'required',
                 'order_status' => 'required',
+                'total_cost' => 'required',
             ]);
 
             $order = Order::create([
@@ -26,6 +27,7 @@ class OrderController extends Controller
                 'customer_name' => $validatedData['customer_name'],
                 'customer_address' => $validatedData['customer_address'],
                 'email' => $req->customer_email ? $req->customer_email : 'unknown@gmail.com',
+                'total_cost' => $validatedData['total_cost'],
                 'phone_no' => $req->phone_no ? $req->phone_no : '09 - xxxxxxx',
                 'note' => $req->note ? $req->note : 'no note',
                 'order_status' => $validatedData['order_status'],
@@ -78,23 +80,68 @@ class OrderController extends Controller
     public function getChart()
     {
 
-        $productByMonth = Order::select('created_at')
+        $orderByMonth = Order::select('created_at')
             ->get()
             ->groupBy(function ($date) {
-                // return Carbon::parse($date->created_at)->format('Y'); // grouping by years
-                return Carbon::parse($date->created_at)->format('m'); // grouping by months
+                return Carbon::parse($date->created_at)->format('m');
             });
 
         $collections = [];
 
-        for ($i = 0; $i < 13; $i++) {
+        for ($i = 0; $i < 12; $i++) {
             $collections[$i] = 0;
         }
-        foreach ($productByMonth as $key => $value) {
-
-            $collections[(int) $key] = count($value);
+        foreach ($orderByMonth as $key => $value) {
+            $collections[(int) $key - 1] = count($value);
         }
 
         return response($collections, 200);
     }
+    public function getTotalCost($totalCost)
+    {
+        $cost = 0;
+        foreach ($totalCost as $tc) {
+            $cost += $tc->total_cost;
+        }
+        return $cost;
+    }
+
+    public function getSaleChart()
+    {
+
+        $saleByMonth = Order::select('created_at', 'total_cost')->where('order_status', 'complete')
+            ->get()
+            ->groupBy(function ($date) {
+                return Carbon::parse($date->created_at)->format('m');
+            });
+
+        $collections = [];
+        for ($i = 0; $i < 12; $i++) {
+            $collections[$i] = 0;
+        }
+        foreach ($saleByMonth as $key => $value) {
+            $collections[(int) $key - 1] = $this->getTotalCost($value);
+        }
+        return response($collections, 200);
+
+    }
+
+    public function getTodayOrders()
+    {
+        $orders_today = Order::whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->count();
+        return response($orders_today, 200);
+    }
+
+    public function getTotalSale()
+    {
+        $total_sale = Order::select('total_cost')->where('order_status', 'complete')->get();
+        $sales = 0;
+
+        foreach ($total_sale as $value) {
+            $sales += $value['total_cost'];
+
+        }
+        return response($sales, 200);
+    }
+
 }

@@ -197,12 +197,12 @@ class ProductController extends Controller
 
         $collections = [];
 
-        for ($i = 0; $i < 13; $i++) {
+        for ($i = 0; $i < 12; $i++) {
             $collections[$i] = 0;
         }
         foreach ($productByMonth as $key => $value) {
 
-            $collections[(int) $key] = count($value);
+            $collections[(int) $key - 1] = count($value);
         }
 
         return response($collections, 200);
