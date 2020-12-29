@@ -121,7 +121,7 @@ class ProductController extends Controller
 
     public function getAllProducts()
     {
-        $products = Product::all();
+        $products = Product::with('user')->get();
         return response($products, 200)->header('Content-Type', 'application/json');
     }
 
@@ -189,8 +189,9 @@ class ProductController extends Controller
     {
         $fromDate = Carbon::yesterday();
         $toDate = Carbon::tomorrow();
-
-        $recent = Product::select('productName', 'model', 'created_at', 'admin_id', 'purchase_type')->whereBetween('created_at', [$fromDate->toDateString(), $toDate->toDateString()])->get();
+        $recent = Product::select('productName', 'model', 'created_at', 'user_id')->whereBetween('created_at', [$fromDate->toDateString(), $toDate->toDateString()])->with(['user' => function ($query) {
+            $query->select('id', 'name');
+        }])->get();
         return response()->json(['message' => 'recent added products', 'data' => $recent]);
     }
 

@@ -35,6 +35,7 @@ class ProductTableSeeder extends Seeder
                 'sale' => $faker->randomElement(['outstock', 'onsale', 'preorder']),
                 'details' => $details,
                 'imageURLs' => $imageURLs,
+                'user_id' => 1,
             ]);
 
         }

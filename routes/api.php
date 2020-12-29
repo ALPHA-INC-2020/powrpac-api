@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/logout', 'LoginController@logout');
 
     //product
+    Route::get('/product/get/recent', 'ProductController@getRecentAddedProducts');
     Route::post('/create/product', 'ProductController@addProduct');
     Route::post('/update/product/{id}', 'ProductController@updateProduct');
     Route::post('/delete/product/{id}', 'ProductController@deleteProduct');
