@@ -185,6 +185,15 @@ class ProductController extends Controller
         return response($new_released_products, 200)->header('Content-Type', 'application/json');
     }
 
+    public function getRecentAddedProducts()
+    {
+        $fromDate = Carbon::yesterday();
+        $toDate = Carbon::tomorrow();
+
+        $recent = Product::select('productName', 'model', 'created_at', 'admin_id', 'purchase_type')->whereBetween('created_at', [$fromDate->toDateString(), $toDate->toDateString()])->get();
+        return response()->json(['message' => 'recent added products', 'data' => $recent]);
+    }
+
     public function getChart()
     {
 

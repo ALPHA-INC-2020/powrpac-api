@@ -42,9 +42,11 @@ class OrderController extends Controller
 
     public function getRecentOrders()
     {
-        $recentOrder = Order::select('customer_name', 'customer_address', 'created_at', 'phone_no')->whereDate('created_at', Carbon::today())->get();
+        $fromDate = Carbon::yesterday();
+        $toDate = Carbon::tomorrow();
 
-        return response()->json(['message' => 'recent orders', 'data' => $recentOrder]);
+        $recent = Order::select('customer_name', 'customer_address', 'created_at', 'phone_no', 'purchase_type')->whereBetween('created_at', [$fromDate->toDateString(), $toDate->toDateString()])->get();
+        return response()->json(['message' => 'recent orders', 'data' => $recent]);
     }
 
     public function getAllOrders()

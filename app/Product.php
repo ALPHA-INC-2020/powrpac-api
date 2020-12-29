@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -10,11 +11,16 @@ class Product extends Model
 
     protected $casts = [
         'details' => 'array',
-        'imageURLs' => 'array'
+        'imageURLs' => 'array',
     ];
 
-     public function order()
+    public function order()
     {
         return $this->hasOne('App\Order');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
