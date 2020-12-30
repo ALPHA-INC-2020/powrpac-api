@@ -22,6 +22,11 @@ Route::post('/login', 'LoginController@login');
 Route::post('/register', 'RegisterController@register');
 
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('/change/name', 'ProfileController@changeUserName');
+
+    //get admin(user) profile
+    Route::get('/get/profile', 'ProfileController@getProfileInfo');
+
     //auth
     Route::post('/logout', 'LoginController@logout');
 
@@ -60,6 +65,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/create/faq', 'faqController@createFAQ');
     Route::post('/delete/faq/{id}', 'faqController@deleteFAQ');
     Route::post('/update/faq/{id}', 'faqController@updateFAQ');
+
+    //change password
+    Route::post('/change/password', 'ProfileController@changePass');
 });
 
 //(public routes)
