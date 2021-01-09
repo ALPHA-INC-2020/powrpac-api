@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     //change password
     Route::post('/change/password', 'ProfileController@changePass');
+
 });
 
 //(public routes)
@@ -88,3 +89,7 @@ Route::get('/get/banner/active', 'BannerController@getActiveBanner');
 
 //faq
 Route::get('/get/faqs', 'faqController@getAllFAQs');
+
+//ewarranty
+Route::post('/create/ewarranty', 'WarrantyController@createWarranty');
+

@@ -25,8 +25,8 @@ class CreateProductTable extends Migration
             $table->string('type');
             $table->string('productType');
             $table->enum('sale', ['outstock', 'onsale', 'preorder']);
-            $table->json('details');
-            $table->json('imageURLs');
+            $table->text('details');
+            $table->text('imageURLs');
             $table->timestamps();
         });
     }

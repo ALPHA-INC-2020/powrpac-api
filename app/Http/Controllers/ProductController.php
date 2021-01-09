@@ -6,6 +6,7 @@ use App\Product;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -39,6 +40,7 @@ class ProductController extends Controller
             $product = Product::create([
                 'model' => $validatedData['model'],
                 'productName' => $validatedData['productName'],
+                'user_id' => Auth::id(),
                 'navigator' => $validatedData['navigator'],
                 'brand' => $validatedData['brand'],
                 'rating' => $validatedData['rating'],
