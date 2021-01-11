@@ -25,6 +25,8 @@ class CreateWarrantyRegistration extends Migration
             $table->string('product_model_no');
             $table->string('product_serial_no');
             $table->string('warranty_card_img');
+            $table->timestamps();
+
 
         });
     }

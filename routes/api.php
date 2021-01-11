@@ -93,3 +93,6 @@ Route::get('/get/faqs', 'faqController@getAllFAQs');
 //ewarranty
 Route::post('/create/ewarranty', 'WarrantyController@createWarranty');
 
+//send msg
+Route::post('/send/msg', 'ContactController@createMsg');
+
