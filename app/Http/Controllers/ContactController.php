@@ -35,4 +35,23 @@ class ContactController extends Controller
 
         return response()->json(['response_data' => $new_msg, 'success' => $success_msg], $status_code);
     }
+
+    public function getAllMsgs() {
+        try {
+            $messages = Contact::all();
+
+            foreach ($messages as $key => $msg) {
+                if($msg->phone_number === null) {
+                    $msg->phone_number = 'not fillled';
+                }
+            }
+            $success_msg = true;
+            $status_code = 200;
+        }catch(ModelNotFoundException $e) {
+            $success_msg = false;
+            $status_code = 404;
+        }
+
+        return response()->json(['response_data' => $messages, 'success' => $success_msg], $status_code);
+    }
 }

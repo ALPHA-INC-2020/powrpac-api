@@ -69,6 +69,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     //change password
     Route::post('/change/password', 'ProfileController@changePass');
 
+    //get all contact messages
+    Route::get('/get/message', 'ContactController@getAllMsgs');
+
 });
 
 //(public routes)
@@ -95,4 +98,5 @@ Route::post('/create/ewarranty', 'WarrantyController@createWarranty');
 
 //send msg
 Route::post('/send/msg', 'ContactController@createMsg');
+
 
